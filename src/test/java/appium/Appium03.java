@@ -10,11 +10,12 @@ import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
-public class Appium02 {
+public class Appium03 {
 
     @Test
-    public void appiumTest() throws MalformedURLException, InterruptedException {
+    public void appiumTest() throws InterruptedException {
 
         AppiumDriver driver;
         DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -28,27 +29,32 @@ public class Appium02 {
         capabilities.setCapability(MobileCapabilityType.APP, "C:/Users/ASUS/IdeaProjects/AppiumTechpro/src/Apps/gestureTool.apk");
         capabilities.setCapability("appPackage", "com.davemac327.gesture.tool");
         capabilities.setCapability("appActivity", "com.davemac327.gesture.tool.GestureBuilderActivity");
+        //Eger apilkasyonu izinler atlayarak ana sayfada acilmasini istiyorsanız asagıdaki komutu kullanın
+        capabilities.setCapability("noReset",true);
+        //capabilities.setCapability("fullReset", true);
 
 
 
-
+        try {
             //AndroidDriver<> driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"),capabilities);
             driver = new AppiumDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
-
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
 
         System.out.println("app yüklendi");
-
-        Thread.sleep(3000);
-
         driver.findElement(By.id("com.android.permissioncontroller:id/continue_button")).click();
-
-        WebElement okButton = driver.findElement(By.xpath("//android.widget.Button[@text='OK']"));
-        okButton.click();
-        System.out.println("izinler onaylandı");
-
-        WebElement homeScreenTitle = driver.findElement(By.id("android:id/title"));
+        Thread.sleep(3000);
+        WebElement homeScreenTitle = (WebElement) driver.findElements(By.id("android:id/title"));
+        Thread.sleep(3000);
         Assert.assertTrue(homeScreenTitle.isDisplayed());
         System.out.println("Ana Sayfa Acıldı");
+
+         WebElement testButterDriver =  driver.findElement(By.id("com.davemac327.gesture.tool:id/testButton"));
+
+
+        //Session Kapat
+        driver.quit();
 
     }
 
