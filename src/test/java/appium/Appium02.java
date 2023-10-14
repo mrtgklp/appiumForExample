@@ -30,15 +30,13 @@ public class Appium02 {
         capabilities.setCapability("appActivity", "com.davemac327.gesture.tool.GestureBuilderActivity");
 
 
-
-
-            //AndroidDriver<> driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"),capabilities);
-            driver = new AppiumDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+        //AndroidDriver<> driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"),capabilities);
+        driver = new AppiumDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 
 
         System.out.println("app yüklendi");
 
-        Thread.sleep(3000);
+        Thread.sleep(5000);
 
         driver.findElement(By.id("com.android.permissioncontroller:id/continue_button")).click();
 
